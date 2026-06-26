@@ -9,385 +9,337 @@ st.set_page_config(
     layout="wide"
 )
 
-# Custom CSS for beautiful UI
+# Clean, professional CSS
 st.markdown("""
     <style>
-    /* Global Styles */
+    /* Reset and Base */
     .main {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        background: #f8f9fa;
     }
     
-    /* Title Styles */
-    .gradient-title {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: 800;
-        font-size: 3.5em !important;
-        text-align: center;
-        padding: 20px 0;
-        letter-spacing: -1px;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    /* Title */
+    .app-title {
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: #1a1a2e;
+        margin-bottom: 0.2rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
     
-    .subtitle {
-        text-align: center;
+    .app-subtitle {
         color: #6c757d;
-        font-size: 1.2em;
-        margin-top: -20px;
-        margin-bottom: 30px;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
     }
     
-    /* Video Input Section */
-    .video-section {
+    /* Cards */
+    .card {
         background: white;
-        padding: 25px;
-        border-radius: 20px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-        border: 1px solid rgba(255,255,255,0.8);
-        backdrop-filter: blur(10px);
-    }
-    
-    /* Question Section */
-    .question-section {
-        background: white;
-        padding: 25px;
-        border-radius: 20px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-        border: 1px solid rgba(255,255,255,0.8);
-        backdrop-filter: blur(10px);
-        min-height: 400px;
-    }
-    
-    /* Answer Container - Premium Design */
-    .answer-container {
-        background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-        border-radius: 20px;
-        padding: 30px;
-        margin-top: 20px;
-        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
-        border: 1px solid rgba(255,255,255,0.6);
-        position: relative;
-        animation: slideUp 0.5s ease-out;
-    }
-    
-    @keyframes slideUp {
-        from {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    
-    .answer-container::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
-        border-radius: 20px;
-        pointer-events: none;
-    }
-    
-    .answer-header {
-        display: flex;
-        align-items: center;
-        gap: 12px;
+        border-radius: 16px;
+        padding: 24px;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        border: 1px solid #e9ecef;
         margin-bottom: 20px;
-        padding-bottom: 15px;
-        border-bottom: 2px solid #f0f0f0;
-        position: relative;
-        z-index: 1;
     }
     
-    .answer-header-icon {
-        font-size: 28px;
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        padding: 10px;
-        border-radius: 12px;
-        color: white;
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-    .answer-header-text {
-        flex: 1;
-    }
-    
-    .answer-header-text h4 {
-        margin: 0;
-        color: #2d3748;
+    .card-title {
+        font-size: 1.1rem;
         font-weight: 600;
-        font-size: 1.1em;
-    }
-    
-    .answer-header-text .timestamp {
-        color: #a0aec0;
-        font-size: 0.85em;
-        margin-top: 2px;
-    }
-    
-    .question-bubble {
-        background: linear-gradient(135deg, #ebf4ff, #e0e7ff);
-        padding: 15px 20px;
-        border-radius: 15px;
-        margin: 15px 0 20px 0;
-        border-left: 4px solid #667eea;
-        position: relative;
-        z-index: 1;
-        font-weight: 500;
-        color: #2d3748;
-    }
-    
-    .question-bubble::before {
-        content: '📝 ';
-        font-size: 18px;
-    }
-    
-    .answer-content {
-        background: white;
-        padding: 25px;
-        border-radius: 15px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        position: relative;
-        z-index: 1;
-        line-height: 1.8;
-        color: #2d3748;
-        font-size: 1.05em;
-        border: 1px solid #f0f0f0;
-        transition: all 0.3s ease;
-    }
-    
-    .answer-content:hover {
-        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-    }
-    
-    .answer-content::before {
-        content: '💡 ';
-        font-size: 20px;
-    }
-    
-    .answer-content strong {
-        color: #667eea;
-    }
-    
-    /* Status Messages */
-    .status-box {
-        padding: 16px 24px;
-        border-radius: 15px;
-        margin: 15px 0;
-        font-weight: 500;
+        color: #1a1a2e;
+        margin-bottom: 16px;
         display: flex;
         align-items: center;
-        gap: 12px;
-        animation: slideUp 0.3s ease-out;
-    }
-    
-    .status-box.success {
-        background: linear-gradient(135deg, #d4edda, #b7e4c7);
-        color: #0d6e2d;
-        border-left: 5px solid #28a745;
-    }
-    
-    .status-box.error {
-        background: linear-gradient(135deg, #f8d7da, #f5c6cb);
-        color: #721c24;
-        border-left: 5px solid #dc3545;
-    }
-    
-    .status-box.info {
-        background: linear-gradient(135deg, #d1ecf1, #bee5eb);
-        color: #0c5460;
-        border-left: 5px solid #17a2b8;
-    }
-    
-    /* Button Styles */
-    .stButton > button {
-        border-radius: 12px !important;
-        font-weight: 600 !important;
-        transition: all 0.3s ease !important;
-        border: none !important;
-        padding: 10px 24px !important;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
-    }
-    
-    .stButton > button:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3) !important;
-    }
-    
-    .stButton > button:active {
-        transform: translateY(0px) !important;
-    }
-    
-    /* Primary Button */
-    .stButton > button[kind="primary"] {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
-        color: white !important;
-    }
-    
-    .stButton > button[kind="primary"]:hover {
-        box-shadow: 0 8px 24px rgba(118, 75, 162, 0.4) !important;
+        gap: 8px;
     }
     
     /* Input Fields */
     .stTextInput > div > div > input {
-        border-radius: 12px !important;
-        border: 2px solid #e2e8f0 !important;
+        border: 2px solid #e9ecef !important;
+        border-radius: 10px !important;
         padding: 12px 16px !important;
-        font-size: 16px !important;
-        transition: all 0.3s ease !important;
+        font-size: 15px !important;
+        transition: all 0.2s ease !important;
+        background: #f8f9fa !important;
     }
     
     .stTextInput > div > div > input:focus {
-        border-color: #667eea !important;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+        border-color: #4A90D9 !important;
+        background: white !important;
+        box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.1) !important;
     }
     
     .stTextArea > div > div > textarea {
-        border-radius: 12px !important;
-        border: 2px solid #e2e8f0 !important;
+        border: 2px solid #e9ecef !important;
+        border-radius: 10px !important;
         padding: 12px 16px !important;
-        font-size: 16px !important;
+        font-size: 15px !important;
         min-height: 100px !important;
-        transition: all 0.3s ease !important;
+        transition: all 0.2s ease !important;
+        background: #f8f9fa !important;
     }
     
     .stTextArea > div > div > textarea:focus {
-        border-color: #667eea !important;
-        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1) !important;
+        border-color: #4A90D9 !important;
+        background: white !important;
+        box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.1) !important;
+    }
+    
+    /* Buttons */
+    .stButton > button {
+        border-radius: 10px !important;
+        font-weight: 600 !important;
+        padding: 10px 24px !important;
+        transition: all 0.2s ease !important;
+        border: none !important;
+        width: 100% !important;
+    }
+    
+    .stButton > button[kind="primary"] {
+        background: #4A90D9 !important;
+        color: white !important;
+    }
+    
+    .stButton > button[kind="primary"]:hover {
+        background: #3a7bc8 !important;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(74, 144, 217, 0.3) !important;
+    }
+    
+    .stButton > button:disabled {
+        opacity: 0.5 !important;
+        cursor: not-allowed !important;
+    }
+    
+    /* Status Messages */
+    .status-success {
+        background: #d4edda;
+        color: #155724;
+        padding: 12px 18px;
+        border-radius: 10px;
+        border-left: 4px solid #28a745;
+        margin: 12px 0;
+    }
+    
+    .status-error {
+        background: #f8d7da;
+        color: #721c24;
+        padding: 12px 18px;
+        border-radius: 10px;
+        border-left: 4px solid #dc3545;
+        margin: 12px 0;
+    }
+    
+    .status-info {
+        background: #d1ecf1;
+        color: #0c5460;
+        padding: 12px 18px;
+        border-radius: 10px;
+        border-left: 4px solid #17a2b8;
+        margin: 12px 0;
+    }
+    
+    /* Answer Box - Clean Design */
+    .answer-box {
+        background: white;
+        border-radius: 16px;
+        padding: 28px;
+        border: 1px solid #e9ecef;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        margin-top: 20px;
+    }
+    
+    .answer-question {
+        background: #f8f9fa;
+        padding: 14px 18px;
+        border-radius: 10px;
+        margin-bottom: 16px;
+        border-left: 4px solid #4A90D9;
+        color: #1a1a2e;
+        font-weight: 500;
+    }
+    
+    .answer-text {
+        color: #2d3748;
+        line-height: 1.8;
+        font-size: 1rem;
+        padding: 4px 0;
+    }
+    
+    .answer-label {
+        font-size: 0.85rem;
+        color: #6c757d;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .answer-label::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: #e9ecef;
     }
     
     /* Sidebar */
     .css-1d391kg {
-        background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%) !important;
-        border-right: 1px solid #e2e8f0 !important;
-        padding: 20px !important;
+        background: white !important;
+        border-right: 1px solid #e9ecef !important;
+        padding: 24px !important;
+    }
+    
+    .sidebar-header {
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: #1a1a2e;
+        margin-bottom: 20px;
     }
     
     /* Metrics */
     [data-testid="metric-container"] {
         background: white;
-        border-radius: 15px;
-        padding: 20px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        border: 1px solid #f0f0f0;
-        transition: all 0.3s ease;
-    }
-    
-    [data-testid="metric-container"]:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        border-radius: 12px;
+        padding: 16px;
+        border: 1px solid #e9ecef;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
     }
     
     [data-testid="metric-label"] {
-        font-weight: 600 !important;
-        color: #4a5568 !important;
+        color: #6c757d !important;
+        font-weight: 500 !important;
     }
     
     [data-testid="metric-value"] {
-        color: #667eea !important;
-        font-weight: 800 !important;
+        color: #1a1a2e !important;
+        font-weight: 700 !important;
     }
     
-    /* Download Button */
-    .download-btn-container {
+    /* Download Button Container */
+    .download-wrapper {
         display: flex;
         justify-content: center;
-        margin: 20px 0;
+        margin-top: 16px;
+    }
+    
+    .download-wrapper .stButton > button {
+        width: auto !important;
+        padding: 8px 32px !important;
+        background: #28a745 !important;
+    }
+    
+    .download-wrapper .stButton > button:hover {
+        background: #218838 !important;
+        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3) !important;
     }
     
     /* Divider */
     hr {
-        margin: 30px 0;
+        margin: 28px 0;
         border: none;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, #667eea, #764ba2, transparent);
+        border-top: 2px solid #e9ecef;
     }
     
-    /* Sidebar sections */
-    .sidebar-section {
-        background: white;
-        padding: 15px;
+    /* Video Thumbnail */
+    .video-thumbnail {
         border-radius: 12px;
-        margin: 10px 0;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        overflow: hidden;
+        margin: 12px 0;
+        border: 1px solid #e9ecef;
     }
     
-    /* Responsive */
-    @media (max-width: 768px) {
-        .gradient-title {
-            font-size: 2.5em !important;
-        }
+    .video-id {
+        color: #6c757d;
+        font-size: 0.85rem;
+        text-align: center;
+        margin-top: 6px;
     }
     
-    /* Scrollbar */
-    ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
+    /* How it works steps */
+    .step {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 8px 0;
+        color: #2d3748;
     }
-    ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 10px;
+    
+    .step-number {
+        background: #4A90D9;
+        color: white;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.85rem;
+        flex-shrink: 0;
     }
-    ::-webkit-scrollbar-thumb {
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        border-radius: 10px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-        background: #764ba2;
+    
+    /* Footer */
+    .footer {
+        text-align: center;
+        color: #adb5bd;
+        font-size: 0.85rem;
+        padding: 20px 0 10px 0;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# Title Section
-st.markdown('<h1 class="gradient-title">🎥 ClipChat</h1>', unsafe_allow_html=True)
-st.markdown('<p class="subtitle">✨ Ask questions about any YouTube video using AI</p>', unsafe_allow_html=True)
+# ===== TITLE SECTION =====
+st.markdown('<div class="app-title">🎥 ClipChat</div>', unsafe_allow_html=True)
+st.markdown('<div class="app-subtitle">Ask questions about any YouTube video using AI</div>', unsafe_allow_html=True)
 
-# Sidebar
+# ===== SIDEBAR =====
 with st.sidebar:
-    st.markdown("### ⚙️ Settings")
+    st.markdown('<div class="sidebar-header">⚙️ Settings</div>', unsafe_allow_html=True)
     
     language = st.selectbox(
         "🌐 Video Language",
         options=['en', 'es', 'fr', 'de', 'hi', 'ja', 'zh', 'ar'],
         format_func=lambda x: {
-            'en': '🇬🇧 English',
-            'es': '🇪🇸 Spanish',
-            'fr': '🇫🇷 French',
-            'de': '🇩🇪 German',
-            'hi': '🇮🇳 Hindi',
-            'ja': '🇯🇵 Japanese',
-            'zh': '🇨🇳 Chinese',
-            'ar': '🇸🇦 Arabic'
+            'en': 'English',
+            'es': 'Spanish',
+            'fr': 'French',
+            'de': 'German',
+            'hi': 'Hindi',
+            'ja': 'Japanese',
+            'zh': 'Chinese',
+            'ar': 'Arabic'
         }[x]
     )
     
     st.markdown("---")
     
-    st.markdown("### 📖 How it Works")
+    st.markdown("**📖 How it Works**")
     st.markdown("""
-    <div class="sidebar-section">
-        <div style="display: flex; flex-direction: column; gap: 12px;">
-            <div><span style="font-weight: bold; color: #667eea;">1.</span> 📹 Enter YouTube URL</div>
-            <div><span style="font-weight: bold; color: #667eea;">2.</span> 🔄 Click "Process Video"</div>
-            <div><span style="font-weight: bold; color: #667eea;">3.</span> 💬 Ask your question</div>
-            <div><span style="font-weight: bold; color: #667eea;">4.</span> 🤖 Get AI answer</div>
-        </div>
+    <div class="step">
+        <span class="step-number">1</span>
+        <span>Enter YouTube URL</span>
+    </div>
+    <div class="step">
+        <span class="step-number">2</span>
+        <span>Click "Process Video"</span>
+    </div>
+    <div class="step">
+        <span class="step-number">3</span>
+        <span>Ask a question</span>
+    </div>
+    <div class="step">
+        <span class="step-number">4</span>
+        <span>Get AI answer</span>
     </div>
     """, unsafe_allow_html=True)
     
     st.markdown("---")
     
-    st.markdown("### 📊 Stats")
+    st.markdown("**📊 Stats**")
     if 'processed_videos' not in st.session_state:
         st.session_state.processed_videos = 0
     if 'questions_asked' not in st.session_state:
@@ -395,10 +347,11 @@ with st.sidebar:
     
     col1, col2 = st.columns(2)
     with col1:
-        st.metric("📹 Processed", st.session_state.processed_videos)
+        st.metric("Videos", st.session_state.processed_videos)
     with col2:
-        st.metric("❓ Questions", st.session_state.questions_asked)
+        st.metric("Questions", st.session_state.questions_asked)
 
+# ===== API KEY =====
 def get_api_key():
     try:
         api_key = st.secrets.get("HUGGINGFACE_API_KEY")
@@ -415,7 +368,7 @@ if not hf_token:
     ⚠️ **HUGGINGFACE_API_KEY not found!**
     
     Please add your HuggingFace API key:
-    1. Go to app settings in Streamlit Cloud
+    1. Go to app settings
     2. Click on "Secrets"
     3. Add `HUGGINGFACE_API_KEY = "your_key_here"`
     """)
@@ -431,60 +384,7 @@ except Exception as e:
     st.error(f"⚠️ Error initializing processor: {str(e)}")
     st.stop()
 
-# Main Layout
-col1, col2 = st.columns([2, 3], gap="large")
-
-with col1:
-    st.markdown('<div class="video-section">', unsafe_allow_html=True)
-    st.subheader("📹 Video Input")
-    
-    video_url = st.text_input(
-        "YouTube Video URL",
-        placeholder="https://youtube.com/watch?v=...",
-        help="Enter the full YouTube video URL",
-        label_visibility="collapsed"
-    )
-    
-    process_button = st.button(
-        "🔄 Process Video",
-        type="primary",
-        use_container_width=True,
-        disabled=not video_url
-    )
-    
-    if video_url and ("youtube.com/watch" in video_url or "youtu.be" in video_url):
-        try:
-            if "youtu.be" in video_url:
-                video_id = video_url.split("/")[-1].split("?")[0]
-            else:
-                video_id = video_url.split("v=")[1].split("&")[0]
-            st.image(f"http://img.youtube.com/vi/{video_id}/0.jpg", use_container_width=True)
-            st.caption(f"📌 Video ID: {video_id}")
-        except:
-            pass
-    
-    st.markdown('</div>', unsafe_allow_html=True)
-
-with col2:
-    st.markdown('<div class="question-section">', unsafe_allow_html=True)
-    st.subheader("💬 Question & Answer")
-    
-    question = st.text_area(
-        "Ask a question about the video",
-        placeholder="e.g., What is this video about?",
-        height=80,
-        label_visibility="collapsed"
-    )
-    
-    ask_button = st.button(
-        "❓ Ask Question",
-        type="primary",
-        use_container_width=True,
-        disabled=not question or not st.session_state.get('processed', False)
-    )
-    st.markdown('</div>', unsafe_allow_html=True)
-
-# Initialize session state
+# ===== SESSION STATE =====
 if 'processed' not in st.session_state:
     st.session_state.processed = False
 if 'video_url' not in st.session_state:
@@ -496,10 +396,70 @@ if 'status' not in st.session_state:
 if 'status_type' not in st.session_state:
     st.session_state.status_type = None
 
-# Process Video
-if process_button:
+# ===== MAIN LAYOUT =====
+col1, col2 = st.columns([2, 3])
+
+# LEFT COLUMN - Video Input
+with col1:
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.markdown('<div class="card-title">📹 Video Input</div>', unsafe_allow_html=True)
+    
+    video_url = st.text_input(
+        "YouTube URL",
+        placeholder="https://youtube.com/watch?v=...",
+        label_visibility="collapsed"
+    )
+    
+    process_clicked = st.button(
+        "🔄 Process Video",
+        type="primary",
+        disabled=not video_url
+    )
+    
+    # Show thumbnail
+    if video_url:
+        try:
+            if "youtu.be" in video_url:
+                video_id = video_url.split("/")[-1].split("?")[0]
+            elif "shorts" in video_url:
+                video_id = video_url.split("/shorts/")[1].split("?")[0]
+            else:
+                video_id = video_url.split("v=")[1].split("&")[0]
+            
+            st.image(
+                f"http://img.youtube.com/vi/{video_id}/0.jpg",
+                use_container_width=True
+            )
+            st.markdown(f'<div class="video-id">📌 Video ID: {video_id}</div>', unsafe_allow_html=True)
+        except:
+            pass
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# RIGHT COLUMN - Question & Answer
+with col2:
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.markdown('<div class="card-title">💬 Question & Answer</div>', unsafe_allow_html=True)
+    
+    question = st.text_area(
+        "Ask a question",
+        placeholder="e.g., What is this video about?",
+        height=80,
+        label_visibility="collapsed"
+    )
+    
+    ask_clicked = st.button(
+        "❓ Ask Question",
+        type="primary",
+        disabled=not question or not st.session_state.get('processed', False)
+    )
+    
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# ===== PROCESS VIDEO =====
+if process_clicked:
     if not video_url:
-        st.session_state.status = "⚠️ Please enter a YouTube URL"
+        st.session_state.status = "Please enter a YouTube URL"
         st.session_state.status_type = "error"
     else:
         try:
@@ -527,8 +487,8 @@ if process_button:
             st.session_state.status = f"❌ Error: {str(e)}"
             st.session_state.status_type = "error"
 
-# Ask Question
-if ask_button and st.session_state.processed:
+# ===== ASK QUESTION =====
+if ask_clicked and st.session_state.processed:
     try:
         with st.spinner("🤔 Thinking..."):
             answer = processor.query_video(
@@ -539,7 +499,7 @@ if ask_button and st.session_state.processed:
         
         st.session_state.answer = answer
         st.session_state.questions_asked += 1
-        st.session_state.status = "✅ Answer generated successfully!"
+        st.session_state.status = "✅ Answer generated!"
         st.session_state.status_type = "success"
         st.rerun()
         
@@ -547,41 +507,33 @@ if ask_button and st.session_state.processed:
         st.session_state.status = f"❌ Error: {str(e)}"
         st.session_state.status_type = "error"
 
-# Display Status
+# ===== DISPLAY STATUS =====
 if st.session_state.status:
-    icon = "✅" if st.session_state.status_type == "success" else "❌" if st.session_state.status_type == "error" else "ℹ️"
-    st.markdown(f"""
-    <div class="status-box {st.session_state.status_type}">
-        <span style="font-size: 20px;">{icon}</span>
-        <span>{st.session_state.status}</span>
-    </div>
-    """, unsafe_allow_html=True)
+    status_class = {
+        "success": "status-success",
+        "error": "status-error",
+        "info": "status-info"
+    }.get(st.session_state.status_type, "status-info")
+    
+    st.markdown(f'<div class="{status_class}">{st.session_state.status}</div>', unsafe_allow_html=True)
 
-# Display Answer
+# ===== DISPLAY ANSWER =====
 if st.session_state.answer:
     st.markdown("---")
     
-    st.markdown(f"""
-    <div class="answer-container">
-        <div class="answer-header">
-            <div class="answer-header-icon">🤖</div>
-            <div class="answer-header-text">
-                <h4>AI Answer</h4>
-                <div class="timestamp">Generated just now</div>
-            </div>
+    st.markdown("""
+    <div class="answer-box">
+        <div class="answer-label">📝 Answer</div>
+        <div class="answer-question">
+            <strong>Q:</strong> {question}
         </div>
-        
-        <div class="question-bubble">
-            {question}
-        </div>
-        
-        <div class="answer-content">
-            {st.session_state.answer}
+        <div class="answer-text">
+            <strong>A:</strong> {answer}
         </div>
     </div>
-    """, unsafe_allow_html=True)
+    """.format(question=question, answer=st.session_state.answer), unsafe_allow_html=True)
     
-    # Download Button
+    # Download button
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.download_button(
@@ -589,9 +541,9 @@ if st.session_state.answer:
             data=st.session_state.answer,
             file_name="clipchat_answer.txt",
             mime="text/plain",
-            use_container_width=True,
-            key="download_btn"
+            use_container_width=True
         )
 
+# ===== FOOTER =====
 st.markdown("---")
-st.markdown('<p style="text-align: center; color: #a0aec0; font-size: 0.9em;">Built with ❤️ using Streamlit, LangChain, and HuggingFace</p>', unsafe_allow_html=True)
+st.markdown('<div class="footer">Built with ❤️ using Streamlit, LangChain & HuggingFace</div>', unsafe_allow_html=True)
