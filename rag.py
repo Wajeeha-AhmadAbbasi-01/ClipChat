@@ -1,4 +1,4 @@
-# utils/rag_utils.py
+# utils/rag_utils.py - Updated for LangChain 0.2+
 import os
 import re
 import streamlit as st
@@ -9,8 +9,6 @@ from langchain_community.vectorstores import FAISS
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough, RunnableLambda
 from langchain_core.output_parsers import StrOutputParser
-import tempfile
-import shutil
 import time
 
 class RAGProcessor:
@@ -34,9 +32,10 @@ class RAGProcessor:
             Answer Only from the provided transcript context.
             If the context is insufficient, just say you don't know.
 
-            {context}
-            Question:{question}
+            Context: {context}
+            Question: {question}
 
+            Answer:
             """,
             input_variables=['context', 'question']
         )
@@ -136,8 +135,8 @@ class RAGProcessor:
             "question": RunnablePassthrough()
         })
         
-        # Use a free model to avoid rate limits
-        model_name = 'google/flan-t5-large'  # Free and fast
+        # Use a smaller, faster model to avoid rate limits
+        model_name = 'google/flan-t5-large'
         
         llm = HuggingFaceEndpoint(
             repo_id=model_name,
@@ -145,7 +144,6 @@ class RAGProcessor:
             max_new_tokens=256,
             do_sample=False,
             repetition_penalty=1.03,
-            provider="auto",
             huggingfacehub_api_token=self.huggingface_token
         )
         
@@ -162,7 +160,7 @@ class RAGProcessor:
                 return answer
             except Exception as e:
                 if "429" in str(e) and attempt < max_retries - 1:
-                    time.sleep(30)  # Wait 30 seconds before retry
+                    time.sleep(30)
                     continue
                 raise e
         
