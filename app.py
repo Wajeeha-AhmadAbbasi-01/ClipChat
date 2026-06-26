@@ -5,7 +5,7 @@ import time
 from rag import RAGProcessor
 
 st.set_page_config(
-    page_title="VidRAG - YouTube Q&A",
+    page_title="ClipChat - YouTube Q&A",
     page_icon="🎥",
     layout="wide"
 )
@@ -44,7 +44,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.title("🎥 VidRAG")
+st.title("🎥 ClipChat")
 st.markdown("Ask questions about any YouTube video using AI!")
 
 with st.sidebar:
