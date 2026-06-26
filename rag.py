@@ -261,7 +261,7 @@ class RAGProcessor:
         })
         
         # Use a smaller model to avoid rate limits
-        model_name = 'google/flan-t5-large'
+        model_name = 'mistralai/Mistral-7B-Instruct-v0.1'
         
         llm = HuggingFaceEndpoint(
             repo_id=model_name,
