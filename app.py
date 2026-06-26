@@ -1,37 +1,25 @@
-# app.py - Updated with correct import
+# app.py - Complete working app
 import streamlit as st
 import os
 import time
-from rag import RAGProcessor  # ← CHANGED THIS LINE
+from rag import RAGProcessor
 
-# Page configuration
 st.set_page_config(
-    page_title="ClipChat - YouTube Q&A",
+    page_title="VidRAG - YouTube Q&A",
     page_icon="🎥",
     layout="wide"
 )
 
-# Custom CSS
 st.markdown("""
     <style>
-    .stTextInput > div > div > input {
-        font-size: 16px;
-    }
-    .stTextArea > div > div > textarea {
-        font-size: 16px;
-    }
+    .stTextInput > div > div > input { font-size: 16px; }
+    .stTextArea > div > div > textarea { font-size: 16px; }
     .answer-box {
         background-color: #f0f2f6;
         padding: 20px;
         border-radius: 10px;
         margin: 10px 0;
         border-left: 4px solid #ff4b4b;
-    }
-    .video-info {
-        background-color: #e8f0fe;
-        padding: 15px;
-        border-radius: 10px;
-        margin: 10px 0;
     }
     .status-box {
         padding: 10px;
@@ -56,11 +44,9 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Title
-st.title("🎥 ClipChat")
+st.title("🎥 VidRAG")
 st.markdown("Ask questions about any YouTube video using AI!")
 
-# Sidebar
 with st.sidebar:
     st.header("⚙️ Settings")
     
@@ -87,8 +73,16 @@ with st.sidebar:
     3. Ask questions
     4. Get AI answers
     """)
+    
+    st.markdown("---")
+    st.markdown("### 📊 Stats")
+    if 'processed_videos' not in st.session_state:
+        st.session_state.processed_videos = 0
+    if 'questions_asked' not in st.session_state:
+        st.session_state.questions_asked = 0
+    st.metric("Videos Processed", st.session_state.processed_videos)
+    st.metric("Questions Asked", st.session_state.questions_asked)
 
-# Get API key
 def get_api_key():
     try:
         api_key = st.secrets.get("HUGGINGFACE_API_KEY")
@@ -96,12 +90,7 @@ def get_api_key():
             return api_key
     except:
         pass
-    
-    api_key = os.getenv("HUGGINGFACE_API_KEY")
-    if api_key:
-        return api_key
-    
-    return None
+    return os.getenv("HUGGINGFACE_API_KEY")
 
 hf_token = get_api_key()
 
@@ -116,7 +105,6 @@ if not hf_token:
     """)
     st.stop()
 
-# Initialize processor
 @st.cache_resource
 def get_processor():
     return RAGProcessor(hf_token)
@@ -127,7 +115,6 @@ except Exception as e:
     st.error(f"⚠️ Error initializing processor: {str(e)}")
     st.stop()
 
-# Main layout
 col1, col2 = st.columns([2, 3])
 
 with col1:
@@ -168,9 +155,6 @@ with col2:
         disabled=not question or not st.session_state.get('processed', False)
     )
 
-# Initialize session state
-if 'processor' not in st.session_state:
-    st.session_state.processor = None
 if 'processed' not in st.session_state:
     st.session_state.processed = False
 if 'video_url' not in st.session_state:
@@ -181,12 +165,7 @@ if 'status' not in st.session_state:
     st.session_state.status = None
 if 'status_type' not in st.session_state:
     st.session_state.status_type = None
-if 'processed_videos' not in st.session_state:
-    st.session_state.processed_videos = 0
-if 'questions_asked' not in st.session_state:
-    st.session_state.questions_asked = 0
 
-# Process video
 if process_button:
     if not video_url:
         st.session_state.status = "Please enter a YouTube URL"
@@ -201,11 +180,7 @@ if process_button:
                 progress_bar.progress(percent / 100)
             
             with st.spinner("Processing video..."):
-                processor.process_video(
-                    video_url, 
-                    language, 
-                    update_progress
-                )
+                processor.process_video(video_url, language, update_progress)
             
             st.session_state.processed = True
             st.session_state.video_url = video_url
@@ -221,7 +196,6 @@ if process_button:
             st.session_state.status = f"❌ Error: {str(e)}"
             st.session_state.status_type = "error"
 
-# Ask question
 if ask_button and st.session_state.processed:
     try:
         with st.spinner("🤔 Thinking..."):
@@ -241,7 +215,6 @@ if ask_button and st.session_state.processed:
         st.session_state.status = f"❌ Error: {str(e)}"
         st.session_state.status_type = "error"
 
-# Display status
 if st.session_state.status:
     st.markdown(f"""
     <div class="status-box {st.session_state.status_type}">
@@ -249,7 +222,6 @@ if st.session_state.status:
     </div>
     """, unsafe_allow_html=True)
 
-# Display answer
 if st.session_state.answer:
     st.markdown("---")
     st.subheader("📝 Answer")
@@ -267,6 +239,5 @@ if st.session_state.answer:
         mime="text/plain"
     )
 
-# Footer
 st.markdown("---")
 st.caption("Built with ❤️ using Streamlit, LangChain, and HuggingFace")
