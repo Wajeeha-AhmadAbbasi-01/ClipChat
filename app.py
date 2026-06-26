@@ -1,8 +1,8 @@
-# app.py - Updated for compatibility
+# app.py - Updated with correct import
 import streamlit as st
 import os
 import time
-from utils.rag_utils import RAGProcessor
+from rag import RAGProcessor  # ← CHANGED THIS LINE
 
 # Page configuration
 st.set_page_config(
