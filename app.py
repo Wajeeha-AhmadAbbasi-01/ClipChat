@@ -9,182 +9,86 @@ st.set_page_config(
     layout="wide"
 )
 
-# Clean, minimal CSS that works
+# Clean, responsive CSS adapting to both Light and Dark themes
 st.markdown("""
     <style>
-    /* Reset */
+    /* Reset & Spacing */
     .main {
         padding: 0rem 1rem;
     }
     
-    /* Title */
+    /* Title Section */
     .title-container {
         text-align: center;
-        padding: 1rem 0;
-        margin-bottom: 1rem;
-    }
-    .title-container h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-        color: #1a1a2e;
-        margin: 0;
-    }
-    .title-container p {
-        color: #6c757d;
-        font-size: 1.1rem;
-        margin: 0.3rem 0 0 0;
-    }
-    
-    /* Cards */
-    .card {
-        background: #ffffff;
-        border-radius: 12px;
-        padding: 1.5rem;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-        border: 1px solid #e9ecef;
+        padding: 1.5rem 0;
         margin-bottom: 1.5rem;
     }
+    .title-container h1 {
+        font-size: 2.8rem;
+        font-weight: 800;
+        margin: 0;
+        background: linear-gradient(45deg, #4A90D9, #28a745);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .title-container p {
+        color: var(--text-color);
+        opacity: 0.8;
+        font-size: 1.1rem;
+        margin: 0.5rem 0 0 0;
+    }
+    
+    /* Elegant Modern Cards */
+    .card {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 16px;
+        padding: 1.5rem;
+        border: 1px solid rgba(128, 128, 128, 0.2);
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    
+    /* Setup explicit text colors for system elements to adapt perfectly */
     .card-title {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #1a1a2e;
-        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 1.2rem;
         display: flex;
         align-items: center;
         gap: 0.5rem;
     }
     
-    /* Inputs */
-    .stTextInput > div > div > input {
-        border: 1.5px solid #dee2e6 !important;
-        border-radius: 8px !important;
-        padding: 0.6rem 1rem !important;
-        font-size: 0.95rem !important;
-        background: #fafafa !important;
+    /* Customizing Streamlit Native Form Elements seamlessly */
+    .stTextInput > div > div {
+        border-radius: 10px !important;
     }
-    .stTextInput > div > div > input:focus {
-        border-color: #4A90D9 !important;
-        background: #ffffff !important;
-        box-shadow: 0 0 0 2px rgba(74, 144, 217, 0.1) !important;
+    .stTextArea > div > div {
+        border-radius: 10px !important;
     }
     
-    .stTextArea > div > div > textarea {
-        border: 1.5px solid #dee2e6 !important;
-        border-radius: 8px !important;
-        padding: 0.6rem 1rem !important;
-        font-size: 0.95rem !important;
-        background: #fafafa !important;
-        min-height: 80px !important;
-    }
-    .stTextArea > div > div > textarea:focus {
-        border-color: #4A90D9 !important;
-        background: #ffffff !important;
-        box-shadow: 0 0 0 2px rgba(74, 144, 217, 0.1) !important;
-    }
-    
-    /* Buttons */
+    /* Buttons Customization styling */
     .stButton > button {
-        border-radius: 8px !important;
+        border-radius: 10px !important;
         font-weight: 600 !important;
         padding: 0.6rem 1.5rem !important;
-        transition: all 0.2s !important;
-        border: none !important;
+        transition: all 0.2s ease !important;
         width: 100% !important;
         font-size: 0.95rem !important;
     }
-    .stButton > button[kind="primary"] {
-        background: #4A90D9 !important;
-        color: #ffffff !important;
-    }
-    .stButton > button[kind="primary"]:hover {
-        background: #3a7bc8 !important;
-        box-shadow: 0 2px 8px rgba(74, 144, 217, 0.3) !important;
-        transform: translateY(-1px);
-    }
-    .stButton > button:disabled {
-        opacity: 0.5 !important;
-        cursor: not-allowed !important;
-    }
     
-    /* Status */
-    .status-msg {
-        padding: 0.8rem 1.2rem;
-        border-radius: 8px;
-        margin: 0.8rem 0;
-        font-weight: 500;
-        border-left: 4px solid;
-    }
-    .status-success {
-        background: #d4edda;
-        color: #155724;
-        border-left-color: #28a745;
-    }
-    .status-error {
-        background: #f8d7da;
-        color: #721c24;
-        border-left-color: #dc3545;
-    }
-    .status-info {
-        background: #d1ecf1;
-        color: #0c5460;
-        border-left-color: #17a2b8;
-    }
-    
-    /* Answer Box */
-    .answer-container {
-        background: #ffffff;
-        border-radius: 12px;
-        padding: 1.5rem;
-        border: 1px solid #e9ecef;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-        margin-top: 1rem;
-    }
-    .answer-label {
-        font-size: 0.8rem;
-        font-weight: 600;
-        color: #6c757d;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: 0.8rem;
-    }
-    .answer-question {
-        background: #f8f9fa;
-        padding: 0.8rem 1rem;
-        border-radius: 8px;
-        border-left: 3px solid #4A90D9;
-        margin-bottom: 1rem;
-        color: #1a1a2e;
-        font-weight: 500;
-    }
-    .answer-text {
-        color: #2d3748;
-        line-height: 1.7;
-        padding: 0.2rem 0;
-    }
-    .answer-text strong {
-        color: #4A90D9;
-    }
-    
-    /* Sidebar */
-    .css-1d391kg {
-        background: #fafafa !important;
-        padding: 1.5rem !important;
-    }
-    
-    /* Sidebar steps */
+    /* Step Item Customizations */
     .step-item {
         display: flex;
         align-items: center;
         gap: 0.8rem;
-        padding: 0.4rem 0;
-        color: #2d3748;
+        padding: 0.5rem 0;
         font-size: 0.95rem;
     }
     .step-num {
         background: #4A90D9;
         color: white;
-        width: 26px;
-        height: 26px;
+        width: 24px;
+        height: 24px;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -194,70 +98,48 @@ st.markdown("""
         flex-shrink: 0;
     }
     
-    /* Metrics */
-    [data-testid="metric-container"] {
-        background: #ffffff;
+    /* Answer Display Box Styling */
+    .answer-container {
+        background: rgba(74, 144, 217, 0.05);
+        border-radius: 16px;
+        padding: 1.8rem;
+        border: 1px solid rgba(74, 144, 217, 0.2);
+        margin-top: 1.5rem;
+    }
+    .answer-label {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #4A90D9;
+        text-transform: uppercase;
+        letter-spacing: 0.8px;
+        margin-bottom: 0.8rem;
+    }
+    .answer-question {
+        background: rgba(128, 128, 128, 0.1);
+        padding: 0.8rem 1rem;
         border-radius: 10px;
-        padding: 1rem;
-        border: 1px solid #e9ecef;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-        text-align: center;
+        border-left: 4px solid #4A90D9;
+        margin-bottom: 1.2rem;
+        font-weight: 500;
     }
-    [data-testid="metric-label"] {
-        color: #6c757d !important;
-        font-weight: 500 !important;
-        font-size: 0.85rem !important;
-    }
-    [data-testid="metric-value"] {
-        color: #1a1a2e !important;
-        font-weight: 700 !important;
-        font-size: 1.5rem !important;
+    .answer-text {
+        line-height: 1.7;
+        font-size: 1.05rem;
     }
     
-    /* Download button */
-    .download-wrapper {
-        display: flex;
-        justify-content: center;
-        margin-top: 1rem;
-    }
-    .download-wrapper .stButton > button {
-        width: auto !important;
-        padding: 0.5rem 2.5rem !important;
-        background: #28a745 !important;
-        color: white !important;
-    }
-    .download-wrapper .stButton > button:hover {
-        background: #218838 !important;
-        box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3) !important;
-    }
-    
-    /* Footer */
+    /* Footer section alignment */
     .footer {
         text-align: center;
-        color: #adb5bd;
-        font-size: 0.8rem;
-        padding: 1.5rem 0 0.5rem 0;
+        opacity: 0.5;
+        font-size: 0.85rem;
+        padding: 2rem 0 1rem 0;
     }
     
-    /* Divider */
-    hr {
-        margin: 1.5rem 0;
-        border: none;
-        border-top: 1.5px solid #e9ecef;
-    }
-    
-    /* Thumbnail */
-    .thumbnail-container {
-        border-radius: 10px;
-        overflow: hidden;
-        margin: 0.8rem 0;
-        border: 1px solid #e9ecef;
-    }
     .video-id-text {
-        color: #6c757d;
+        opacity: 0.6;
         font-size: 0.8rem;
         text-align: center;
-        margin-top: 0.3rem;
+        margin-top: 0.5rem;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -375,62 +257,60 @@ col1, col2 = st.columns([2, 3], gap="medium")
 
 # LEFT COLUMN
 with col1:
-    with st.container():
-        st.markdown('<div class="card">', unsafe_allow_html=True)
-        st.markdown('<div class="card-title">📹 Video Input</div>', unsafe_allow_html=True)
-        
-        video_url = st.text_input(
-            "YouTube URL",
-            placeholder="https://youtube.com/watch?v=...",
-            label_visibility="collapsed"
-        )
-        
-        process_clicked = st.button(
-            "🔄 Process Video",
-            type="primary",
-            disabled=not video_url
-        )
-        
-        # Thumbnail
-        if video_url:
-            try:
-                if "youtu.be" in video_url:
-                    video_id = video_url.split("/")[-1].split("?")[0]
-                elif "shorts" in video_url:
-                    video_id = video_url.split("/shorts/")[1].split("?")[0]
-                else:
-                    video_id = video_url.split("v=")[1].split("&")[0]
-                
-                st.image(
-                    f"http://img.youtube.com/vi/{video_id}/0.jpg",
-                    use_container_width=True
-                )
-                st.markdown(f'<div class="video-id-text">📌 Video ID: {video_id}</div>', unsafe_allow_html=True)
-            except:
-                pass
-        
-        st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.markdown('<div class="card-title">📹 Video Input</div>', unsafe_allow_html=True)
+    
+    video_url = st.text_input(
+        "YouTube URL",
+        placeholder="https://youtube.com/watch?v=...",
+        label_visibility="collapsed"
+    )
+    
+    process_clicked = st.button(
+        "🔄 Process Video",
+        type="primary",
+        disabled=not video_url
+    )
+    
+    # Thumbnail
+    if video_url:
+        try:
+            if "youtu.be" in video_url:
+                video_id = video_url.split("/")[-1].split("?")[0]
+            elif "shorts" in video_url:
+                video_id = video_url.split("/shorts/")[1].split("?")[0]
+            else:
+                video_id = video_url.split("v=")[1].split("&")[0]
+            
+            st.image(
+                f"http://img.youtube.com/vi/{video_id}/0.jpg",
+                use_container_width=True
+            )
+            st.markdown(f'<div class="video-id-text">📌 Video ID: {video_id}</div>', unsafe_allow_html=True)
+        except:
+            pass
+            
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # RIGHT COLUMN
 with col2:
-    with st.container():
-        st.markdown('<div class="card">', unsafe_allow_html=True)
-        st.markdown('<div class="card-title">💬 Question & Answer</div>', unsafe_allow_html=True)
-        
-        question = st.text_area(
-            "Ask a question",
-            placeholder="e.g., What is this video about?",
-            height=80,
-            label_visibility="collapsed"
-        )
-        
-        ask_clicked = st.button(
-            "❓ Ask Question",
-            type="primary",
-            disabled=not question or not st.session_state.get('processed', False)
-        )
-        
-        st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('<div class="card">', unsafe_allow_html=True)
+    st.markdown('<div class="card-title">💬 Question & Answer</div>', unsafe_allow_html=True)
+    
+    question = st.text_area(
+        "Ask a question",
+        placeholder="e.g., What is this video about?",
+        height=100,
+        label_visibility="collapsed"
+    )
+    
+    ask_clicked = st.button(
+        "❓ Ask Question",
+        type="secondary",
+        disabled=not question or not st.session_state.get('processed', False)
+    )
+    
+    st.markdown('</div>', unsafe_allow_html=True)
 
 # ===== PROCESS VIDEO =====
 if process_clicked:
@@ -485,18 +365,15 @@ if ask_clicked and st.session_state.processed:
 
 # ===== DISPLAY STATUS =====
 if st.session_state.status:
-    status_class = {
-        "success": "status-success",
-        "error": "status-error",
-        "info": "status-info"
-    }.get(st.session_state.status_type, "status-info")
-    
-    st.markdown(f'<div class="status-msg {status_class}">{st.session_state.status}</div>', unsafe_allow_html=True)
+    if st.session_state.status_type == "success":
+        st.success(st.session_state.status)
+    elif st.session_state.status_type == "error":
+        st.error(st.session_state.status)
+    else:
+        st.info(st.session_state.status)
 
 # ===== DISPLAY ANSWER =====
 if st.session_state.answer:
-    st.markdown("---")
-    
     st.markdown(f"""
     <div class="answer-container">
         <div class="answer-label">📝 Answer</div>
@@ -504,22 +381,18 @@ if st.session_state.answer:
             <strong>Q:</strong> {question}
         </div>
         <div class="answer-text">
-            <strong>A:</strong> {st.session_state.answer}
+            {st.session_state.answer}
         </div>
     </div>
     """, unsafe_allow_html=True)
     
     # Download
-    c1, c2, c3 = st.columns([1, 2, 1])
-    with c2:
-        st.download_button(
-            label="📥 Download Answer",
-            data=st.session_state.answer,
-            file_name="clipchat_answer.txt",
-            mime="text/plain",
-            use_container_width=True
-        )
+    st.download_button(
+        label="📥 Download Answer Summary",
+        data=st.session_state.answer,
+        file_name="clipchat_answer.txt",
+        mime="text/plain"
+    )
 
 # ===== FOOTER =====
-st.markdown("---")
 st.markdown('<div class="footer">Built with ❤️ using Streamlit, LangChain & HuggingFace</div>', unsafe_allow_html=True)
