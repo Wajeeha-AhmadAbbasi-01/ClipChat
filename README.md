@@ -1,6 +1,9 @@
 # 🎥 ClipChat
 
 **ClipChat** (Video + RAG) - Ask questions about any YouTube video using AI!
+Live link :[ClipChat](https://clipchat-hpvyrfjldppnqox86yv9ju.streamlit.app/)
+Sample youtube video: [PM portfolio](https://www.youtube.com/watch?v=FgdxFPnSUD0&t=5s)
+Try to upload youtube videos with this format also select the video language from side bar
 
 ## Features
 - 🎬 Extract transcripts from any YouTube video
