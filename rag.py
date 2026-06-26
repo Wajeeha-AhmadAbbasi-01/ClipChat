@@ -261,7 +261,7 @@ class RAGProcessor:
         })
         
         # Use a smaller model to avoid rate limits
-        model_name = 'mistralai/Mistral-7B-Instruct-v0.1'
+        model_name = 'meta-llama/Llama-3.1-8B-Instruct'
         
         llm = HuggingFaceEndpoint(
             repo_id=model_name,
