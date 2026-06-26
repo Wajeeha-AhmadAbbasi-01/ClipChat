@@ -9,296 +9,270 @@ st.set_page_config(
     layout="wide"
 )
 
-# Clean, professional CSS
+# Clean, minimal CSS that works
 st.markdown("""
     <style>
-    /* Reset and Base */
+    /* Reset */
     .main {
-        background: #f8f9fa;
+        padding: 0rem 1rem;
     }
     
     /* Title */
-    .app-title {
-        font-size: 2.8rem;
+    .title-container {
+        text-align: center;
+        padding: 1rem 0;
+        margin-bottom: 1rem;
+    }
+    .title-container h1 {
+        font-size: 2.5rem;
         font-weight: 700;
         color: #1a1a2e;
-        margin-bottom: 0.2rem;
-        display: flex;
-        align-items: center;
-        gap: 10px;
+        margin: 0;
     }
-    
-    .app-subtitle {
+    .title-container p {
         color: #6c757d;
         font-size: 1.1rem;
-        margin-bottom: 2rem;
+        margin: 0.3rem 0 0 0;
     }
     
     /* Cards */
     .card {
-        background: white;
-        border-radius: 16px;
-        padding: 24px;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 1.5rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
         border: 1px solid #e9ecef;
-        margin-bottom: 20px;
+        margin-bottom: 1.5rem;
     }
-    
     .card-title {
-        font-size: 1.1rem;
+        font-size: 1rem;
         font-weight: 600;
         color: #1a1a2e;
-        margin-bottom: 16px;
+        margin-bottom: 1rem;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 0.5rem;
     }
     
-    /* Input Fields */
+    /* Inputs */
     .stTextInput > div > div > input {
-        border: 2px solid #e9ecef !important;
-        border-radius: 10px !important;
-        padding: 12px 16px !important;
-        font-size: 15px !important;
-        transition: all 0.2s ease !important;
-        background: #f8f9fa !important;
+        border: 1.5px solid #dee2e6 !important;
+        border-radius: 8px !important;
+        padding: 0.6rem 1rem !important;
+        font-size: 0.95rem !important;
+        background: #fafafa !important;
     }
-    
     .stTextInput > div > div > input:focus {
         border-color: #4A90D9 !important;
-        background: white !important;
-        box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.1) !important;
+        background: #ffffff !important;
+        box-shadow: 0 0 0 2px rgba(74, 144, 217, 0.1) !important;
     }
     
     .stTextArea > div > div > textarea {
-        border: 2px solid #e9ecef !important;
-        border-radius: 10px !important;
-        padding: 12px 16px !important;
-        font-size: 15px !important;
-        min-height: 100px !important;
-        transition: all 0.2s ease !important;
-        background: #f8f9fa !important;
+        border: 1.5px solid #dee2e6 !important;
+        border-radius: 8px !important;
+        padding: 0.6rem 1rem !important;
+        font-size: 0.95rem !important;
+        background: #fafafa !important;
+        min-height: 80px !important;
     }
-    
     .stTextArea > div > div > textarea:focus {
         border-color: #4A90D9 !important;
-        background: white !important;
-        box-shadow: 0 0 0 3px rgba(74, 144, 217, 0.1) !important;
+        background: #ffffff !important;
+        box-shadow: 0 0 0 2px rgba(74, 144, 217, 0.1) !important;
     }
     
     /* Buttons */
     .stButton > button {
-        border-radius: 10px !important;
+        border-radius: 8px !important;
         font-weight: 600 !important;
-        padding: 10px 24px !important;
-        transition: all 0.2s ease !important;
+        padding: 0.6rem 1.5rem !important;
+        transition: all 0.2s !important;
         border: none !important;
         width: 100% !important;
+        font-size: 0.95rem !important;
     }
-    
     .stButton > button[kind="primary"] {
         background: #4A90D9 !important;
-        color: white !important;
+        color: #ffffff !important;
     }
-    
     .stButton > button[kind="primary"]:hover {
         background: #3a7bc8 !important;
+        box-shadow: 0 2px 8px rgba(74, 144, 217, 0.3) !important;
         transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(74, 144, 217, 0.3) !important;
     }
-    
     .stButton > button:disabled {
         opacity: 0.5 !important;
         cursor: not-allowed !important;
     }
     
-    /* Status Messages */
+    /* Status */
+    .status-msg {
+        padding: 0.8rem 1.2rem;
+        border-radius: 8px;
+        margin: 0.8rem 0;
+        font-weight: 500;
+        border-left: 4px solid;
+    }
     .status-success {
         background: #d4edda;
         color: #155724;
-        padding: 12px 18px;
-        border-radius: 10px;
-        border-left: 4px solid #28a745;
-        margin: 12px 0;
+        border-left-color: #28a745;
     }
-    
     .status-error {
         background: #f8d7da;
         color: #721c24;
-        padding: 12px 18px;
-        border-radius: 10px;
-        border-left: 4px solid #dc3545;
-        margin: 12px 0;
+        border-left-color: #dc3545;
     }
-    
     .status-info {
         background: #d1ecf1;
         color: #0c5460;
-        padding: 12px 18px;
-        border-radius: 10px;
-        border-left: 4px solid #17a2b8;
-        margin: 12px 0;
+        border-left-color: #17a2b8;
     }
     
-    /* Answer Box - Clean Design */
-    .answer-box {
-        background: white;
-        border-radius: 16px;
-        padding: 28px;
+    /* Answer Box */
+    .answer-container {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 1.5rem;
         border: 1px solid #e9ecef;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-        margin-top: 20px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        margin-top: 1rem;
     }
-    
+    .answer-label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 0.8rem;
+    }
     .answer-question {
         background: #f8f9fa;
-        padding: 14px 18px;
-        border-radius: 10px;
-        margin-bottom: 16px;
-        border-left: 4px solid #4A90D9;
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        border-left: 3px solid #4A90D9;
+        margin-bottom: 1rem;
         color: #1a1a2e;
         font-weight: 500;
     }
-    
     .answer-text {
         color: #2d3748;
-        line-height: 1.8;
-        font-size: 1rem;
-        padding: 4px 0;
+        line-height: 1.7;
+        padding: 0.2rem 0;
     }
-    
-    .answer-label {
-        font-size: 0.85rem;
-        color: #6c757d;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .answer-label::after {
-        content: '';
-        flex: 1;
-        height: 1px;
-        background: #e9ecef;
+    .answer-text strong {
+        color: #4A90D9;
     }
     
     /* Sidebar */
     .css-1d391kg {
-        background: white !important;
-        border-right: 1px solid #e9ecef !important;
-        padding: 24px !important;
+        background: #fafafa !important;
+        padding: 1.5rem !important;
     }
     
-    .sidebar-header {
-        font-weight: 700;
-        font-size: 1.2rem;
-        color: #1a1a2e;
-        margin-bottom: 20px;
-    }
-    
-    /* Metrics */
-    [data-testid="metric-container"] {
-        background: white;
-        border-radius: 12px;
-        padding: 16px;
-        border: 1px solid #e9ecef;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-    
-    [data-testid="metric-label"] {
-        color: #6c757d !important;
-        font-weight: 500 !important;
-    }
-    
-    [data-testid="metric-value"] {
-        color: #1a1a2e !important;
-        font-weight: 700 !important;
-    }
-    
-    /* Download Button Container */
-    .download-wrapper {
-        display: flex;
-        justify-content: center;
-        margin-top: 16px;
-    }
-    
-    .download-wrapper .stButton > button {
-        width: auto !important;
-        padding: 8px 32px !important;
-        background: #28a745 !important;
-    }
-    
-    .download-wrapper .stButton > button:hover {
-        background: #218838 !important;
-        box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3) !important;
-    }
-    
-    /* Divider */
-    hr {
-        margin: 28px 0;
-        border: none;
-        border-top: 2px solid #e9ecef;
-    }
-    
-    /* Video Thumbnail */
-    .video-thumbnail {
-        border-radius: 12px;
-        overflow: hidden;
-        margin: 12px 0;
-        border: 1px solid #e9ecef;
-    }
-    
-    .video-id {
-        color: #6c757d;
-        font-size: 0.85rem;
-        text-align: center;
-        margin-top: 6px;
-    }
-    
-    /* How it works steps */
-    .step {
+    /* Sidebar steps */
+    .step-item {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 8px 0;
+        gap: 0.8rem;
+        padding: 0.4rem 0;
         color: #2d3748;
+        font-size: 0.95rem;
     }
-    
-    .step-number {
+    .step-num {
         background: #4A90D9;
         color: white;
-        width: 28px;
-        height: 28px;
+        width: 26px;
+        height: 26px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         font-weight: 700;
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         flex-shrink: 0;
+    }
+    
+    /* Metrics */
+    [data-testid="metric-container"] {
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 1rem;
+        border: 1px solid #e9ecef;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+        text-align: center;
+    }
+    [data-testid="metric-label"] {
+        color: #6c757d !important;
+        font-weight: 500 !important;
+        font-size: 0.85rem !important;
+    }
+    [data-testid="metric-value"] {
+        color: #1a1a2e !important;
+        font-weight: 700 !important;
+        font-size: 1.5rem !important;
+    }
+    
+    /* Download button */
+    .download-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+    .download-wrapper .stButton > button {
+        width: auto !important;
+        padding: 0.5rem 2.5rem !important;
+        background: #28a745 !important;
+        color: white !important;
+    }
+    .download-wrapper .stButton > button:hover {
+        background: #218838 !important;
+        box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3) !important;
     }
     
     /* Footer */
     .footer {
         text-align: center;
         color: #adb5bd;
-        font-size: 0.85rem;
-        padding: 20px 0 10px 0;
+        font-size: 0.8rem;
+        padding: 1.5rem 0 0.5rem 0;
+    }
+    
+    /* Divider */
+    hr {
+        margin: 1.5rem 0;
+        border: none;
+        border-top: 1.5px solid #e9ecef;
+    }
+    
+    /* Thumbnail */
+    .thumbnail-container {
+        border-radius: 10px;
+        overflow: hidden;
+        margin: 0.8rem 0;
+        border: 1px solid #e9ecef;
+    }
+    .video-id-text {
+        color: #6c757d;
+        font-size: 0.8rem;
+        text-align: center;
+        margin-top: 0.3rem;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# ===== TITLE SECTION =====
-st.markdown('<div class="app-title">🎥 ClipChat</div>', unsafe_allow_html=True)
-st.markdown('<div class="app-subtitle">Ask questions about any YouTube video using AI</div>', unsafe_allow_html=True)
+# ===== TITLE =====
+st.markdown("""
+<div class="title-container">
+    <h1>🎥 ClipChat</h1>
+    <p>Ask questions about any YouTube video using AI</p>
+</div>
+""", unsafe_allow_html=True)
 
 # ===== SIDEBAR =====
 with st.sidebar:
-    st.markdown('<div class="sidebar-header">⚙️ Settings</div>', unsafe_allow_html=True)
+    st.markdown("### ⚙️ Settings")
     
     language = st.selectbox(
         "🌐 Video Language",
@@ -317,39 +291,39 @@ with st.sidebar:
     
     st.markdown("---")
     
-    st.markdown("**📖 How it Works**")
+    st.markdown("### 📖 How it Works")
     st.markdown("""
-    <div class="step">
-        <span class="step-number">1</span>
+    <div class="step-item">
+        <span class="step-num">1</span>
         <span>Enter YouTube URL</span>
     </div>
-    <div class="step">
-        <span class="step-number">2</span>
+    <div class="step-item">
+        <span class="step-num">2</span>
         <span>Click "Process Video"</span>
     </div>
-    <div class="step">
-        <span class="step-number">3</span>
+    <div class="step-item">
+        <span class="step-num">3</span>
         <span>Ask a question</span>
     </div>
-    <div class="step">
-        <span class="step-number">4</span>
+    <div class="step-item">
+        <span class="step-num">4</span>
         <span>Get AI answer</span>
     </div>
     """, unsafe_allow_html=True)
     
     st.markdown("---")
     
-    st.markdown("**📊 Stats**")
+    st.markdown("### 📊 Stats")
     if 'processed_videos' not in st.session_state:
         st.session_state.processed_videos = 0
     if 'questions_asked' not in st.session_state:
         st.session_state.questions_asked = 0
     
-    col1, col2 = st.columns(2)
-    with col1:
-        st.metric("Videos", st.session_state.processed_videos)
-    with col2:
-        st.metric("Questions", st.session_state.questions_asked)
+    c1, c2 = st.columns(2)
+    with c1:
+        st.metric("🎬 Videos", st.session_state.processed_videos)
+    with c2:
+        st.metric("💬 Questions", st.session_state.questions_asked)
 
 # ===== API KEY =====
 def get_api_key():
@@ -369,7 +343,7 @@ if not hf_token:
     
     Please add your HuggingFace API key:
     1. Go to app settings
-    2. Click on "Secrets"
+    2. Click on "Secrets"  
     3. Add `HUGGINGFACE_API_KEY = "your_key_here"`
     """)
     st.stop()
@@ -397,64 +371,66 @@ if 'status_type' not in st.session_state:
     st.session_state.status_type = None
 
 # ===== MAIN LAYOUT =====
-col1, col2 = st.columns([2, 3])
+col1, col2 = st.columns([2, 3], gap="medium")
 
-# LEFT COLUMN - Video Input
+# LEFT COLUMN
 with col1:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown('<div class="card-title">📹 Video Input</div>', unsafe_allow_html=True)
-    
-    video_url = st.text_input(
-        "YouTube URL",
-        placeholder="https://youtube.com/watch?v=...",
-        label_visibility="collapsed"
-    )
-    
-    process_clicked = st.button(
-        "🔄 Process Video",
-        type="primary",
-        disabled=not video_url
-    )
-    
-    # Show thumbnail
-    if video_url:
-        try:
-            if "youtu.be" in video_url:
-                video_id = video_url.split("/")[-1].split("?")[0]
-            elif "shorts" in video_url:
-                video_id = video_url.split("/shorts/")[1].split("?")[0]
-            else:
-                video_id = video_url.split("v=")[1].split("&")[0]
-            
-            st.image(
-                f"http://img.youtube.com/vi/{video_id}/0.jpg",
-                use_container_width=True
-            )
-            st.markdown(f'<div class="video-id">📌 Video ID: {video_id}</div>', unsafe_allow_html=True)
-        except:
-            pass
-    
-    st.markdown('</div>', unsafe_allow_html=True)
+    with st.container():
+        st.markdown('<div class="card">', unsafe_allow_html=True)
+        st.markdown('<div class="card-title">📹 Video Input</div>', unsafe_allow_html=True)
+        
+        video_url = st.text_input(
+            "YouTube URL",
+            placeholder="https://youtube.com/watch?v=...",
+            label_visibility="collapsed"
+        )
+        
+        process_clicked = st.button(
+            "🔄 Process Video",
+            type="primary",
+            disabled=not video_url
+        )
+        
+        # Thumbnail
+        if video_url:
+            try:
+                if "youtu.be" in video_url:
+                    video_id = video_url.split("/")[-1].split("?")[0]
+                elif "shorts" in video_url:
+                    video_id = video_url.split("/shorts/")[1].split("?")[0]
+                else:
+                    video_id = video_url.split("v=")[1].split("&")[0]
+                
+                st.image(
+                    f"http://img.youtube.com/vi/{video_id}/0.jpg",
+                    use_container_width=True
+                )
+                st.markdown(f'<div class="video-id-text">📌 Video ID: {video_id}</div>', unsafe_allow_html=True)
+            except:
+                pass
+        
+        st.markdown('</div>', unsafe_allow_html=True)
 
-# RIGHT COLUMN - Question & Answer
+# RIGHT COLUMN
 with col2:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
-    st.markdown('<div class="card-title">💬 Question & Answer</div>', unsafe_allow_html=True)
-    
-    question = st.text_area(
-        "Ask a question",
-        placeholder="e.g., What is this video about?",
-        height=80,
-        label_visibility="collapsed"
-    )
-    
-    ask_clicked = st.button(
-        "❓ Ask Question",
-        type="primary",
-        disabled=not question or not st.session_state.get('processed', False)
-    )
-    
-    st.markdown('</div>', unsafe_allow_html=True)
+    with st.container():
+        st.markdown('<div class="card">', unsafe_allow_html=True)
+        st.markdown('<div class="card-title">💬 Question & Answer</div>', unsafe_allow_html=True)
+        
+        question = st.text_area(
+            "Ask a question",
+            placeholder="e.g., What is this video about?",
+            height=80,
+            label_visibility="collapsed"
+        )
+        
+        ask_clicked = st.button(
+            "❓ Ask Question",
+            type="primary",
+            disabled=not question or not st.session_state.get('processed', False)
+        )
+        
+        st.markdown('</div>', unsafe_allow_html=True)
 
 # ===== PROCESS VIDEO =====
 if process_clicked:
@@ -515,27 +491,27 @@ if st.session_state.status:
         "info": "status-info"
     }.get(st.session_state.status_type, "status-info")
     
-    st.markdown(f'<div class="{status_class}">{st.session_state.status}</div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="status-msg {status_class}">{st.session_state.status}</div>', unsafe_allow_html=True)
 
 # ===== DISPLAY ANSWER =====
 if st.session_state.answer:
     st.markdown("---")
     
-    st.markdown("""
-    <div class="answer-box">
+    st.markdown(f"""
+    <div class="answer-container">
         <div class="answer-label">📝 Answer</div>
         <div class="answer-question">
             <strong>Q:</strong> {question}
         </div>
         <div class="answer-text">
-            <strong>A:</strong> {answer}
+            <strong>A:</strong> {st.session_state.answer}
         </div>
     </div>
-    """.format(question=question, answer=st.session_state.answer), unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
     
-    # Download button
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
+    # Download
+    c1, c2, c3 = st.columns([1, 2, 1])
+    with c2:
         st.download_button(
             label="📥 Download Answer",
             data=st.session_state.answer,
