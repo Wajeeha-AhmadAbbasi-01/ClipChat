@@ -1,6 +1,6 @@
-# 🎥 VidRAG
+# 🎥 ClipChat
 
-**VidRAG** (Video + RAG) - Ask questions about any YouTube video using AI!
+**ClipChat** (Video + RAG) - Ask questions about any YouTube video using AI!
 
 ## Features
 - 🎬 Extract transcripts from any YouTube video
